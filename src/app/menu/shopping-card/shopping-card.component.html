@@ -1,0 +1,58 @@
+<div class="shopping-card">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table">
+
+    <ng-container matColumnDef="img">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="center-container"> Зображення</div>
+      </th>
+      <td mat-cell *matCellDef="let dish">
+        <div class="center-container">
+          <img src="assets/images/{{getDishImg(dish.id) ? getDishImg(dish.id) : 'cheeseburger.png'}}">
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef> Назва </th>
+      <td mat-cell *matCellDef="let dish"> {{dish.title}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ingredients">
+      <th mat-header-cell *matHeaderCellDef> Інгредієнти </th>
+      <td mat-cell *matCellDef="let dish"> {{dish.ingredients}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Ціна </th>
+      <td mat-cell *matCellDef="let dish"> {{dish.price}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="count">
+      <th mat-header-cell *matHeaderCellDef> Кількість </th>
+      <td mat-cell *matCellDef="let dish"> {{getCountByDish(dish.id)}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="buttons">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let dish">
+<!--        <mat-icon class="remove-item pointer" (click)="minusItem(dish.id)">remove icon</mat-icon>-->
+<!--        <mat-icon class="add-item pointer" (click)="plusItem(dish.id)">add box icon</mat-icon>-->
+<!--        <mat-icon class="delete-item pointer" (click)="removeItem(dish.id)">delete</mat-icon>-->
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <div class="total">
+    <span>Всього: {{total}} грн.</span>
+    <button mat-button class="order-button" (click)="openDialog(orderItems)" >Замовити</button>
+  </div>
+
+  <div>
+    {{orderItems.length}}!!!!!!!!!!!!!!!!!!!
+  </div>
+
+</div>

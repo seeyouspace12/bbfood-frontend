@@ -1,0 +1,23 @@
+.sidebar {
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  margin-top: 50px;
+}
+.sidebar .category {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  text-align: center;
+  list-style-type: none;
+}
+.sidebar .category .imgContainer img {
+  width: 60px;
+}
+.sidebar .category .imgContainer img:hover {
+  transform: scale(1.1);
+  transition: all 0.7s ease-out;
+}
+.sidebar .category:hover {
+  cursor: pointer;
+}
+/*# sourceMappingURL=NO-used-nav.component.css.map */

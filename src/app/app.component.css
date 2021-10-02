@@ -1,0 +1,10 @@
+.body {
+  display: block;
+  height: 95vh;
+}
+.body .content-container {
+  min-height: 65%;
+  display: flex;
+  align-items: center;
+}
+/*# sourceMappingURL=app.component.css.map */

@@ -1,0 +1,32 @@
+.category {
+  margin-right: 5px;
+  margin-left: 10vw;
+  width: 80vw;
+  display: flex;
+  align-items: center ;
+}
+.category .dishes {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+}
+.category .dishes .dish {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+.category .dishes .dish img {
+  height: 20vw;
+}
+.category .dishes .dish img:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: all 0.7s ease-out;
+}
+.category .dishes .dish h2 {
+  padding-top: 20px;
+  padding-bottom: 15px;
+}
+/*# sourceMappingURL=category-catalog.component.css.map */

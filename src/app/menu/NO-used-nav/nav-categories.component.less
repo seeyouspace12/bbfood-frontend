@@ -1,0 +1,32 @@
+.sidebar {
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  margin-top: 50px;
+
+
+
+  .category {
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+    text-align: center;
+    list-style-type: none;
+
+    .imgContainer {
+
+      img {
+        width: 60px;
+      }
+
+      img:hover {
+        transform: scale(1.1);
+        transition: all 0.7s ease-out;
+      }
+    }
+  }
+
+  .category:hover {
+    cursor: pointer;
+  }
+}

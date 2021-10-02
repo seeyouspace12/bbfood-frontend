@@ -1,0 +1,46 @@
+footer {
+  display: flex;
+  justify-content: space-between;
+  background-image: url('https://media.istockphoto.com/vectors/vector-hand-drawn-pop-art-monochrome-fast-food-pattern-vector-id612022844');
+  height: 20%;
+}
+footer .title {
+  width: 100px;
+  height: 100px;
+  background: palevioletred;
+  margin: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  align-self: center;
+  justify-content: center;
+}
+footer .title .titleContainer {
+  display: block;
+  width: 50%;
+  text-align: right;
+  font-weight: bolder;
+  transform: translateX(10px);
+}
+footer .imgContainer {
+  display: flex;
+  align-items: center;
+  margin: 10px 30px 10px 10px;
+  background: palevioletred;
+  border-radius: 8px;
+  padding: 10px;
+  align-self: center;
+}
+footer .imgContainer a {
+  display: flex;
+  align-self: center;
+  height: 50%;
+}
+footer .imgContainer a .basketImg {
+  height: 100%;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+/*# sourceMappingURL=footer.component.css.map */

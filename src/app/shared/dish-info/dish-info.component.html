@@ -1,0 +1,43 @@
+<mat-dialog-content class="mat-typography">
+  <div class="window">
+    <h1>{{data.dish.title}}</h1>
+    <div class = dish-info>
+      <div class="img-container">
+        <img
+          src="/assets/images/{{data.dish.url ? data.dish.url : 'cheeseburger.png'}}"
+          alt="Картинку не знайдено"
+          class="dish-img"
+        >
+      </div>
+      <div class="dish-text-info">
+        <div class="price-info">
+          <h2>Ціна</h2>
+          <span>{{data.dish.price}}</span>
+        </div>
+        <div class="ingredients-info">
+          <h2>Інгредієнти</h2>
+          <span>{{data.dish.ingredients}}</span>
+        </div>
+
+
+        <mat-form-field>
+          <mat-label for="count">Кількість:{{count}}</mat-label>
+          <input
+            matInput
+            name="count"
+            type="number"
+            class="counter"
+            [(ngModel)]="count"
+            [value]="count"
+            autocomplete="off"
+            min="1"
+            max="100"
+          >
+          <button type="submit" mat-button (click)="setToOrder(data.dish.id, count)">Замовити</button>
+        </mat-form-field>
+      </div>
+      <button mat-button (click)="onNoClick()">Close</button>
+    </div>
+  </div>
+</mat-dialog-content>
+

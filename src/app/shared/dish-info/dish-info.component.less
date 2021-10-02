@@ -1,0 +1,70 @@
+mat-dialog-content {
+  height: 70vh;
+
+  .window {
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+      padding-left: 20px;
+    }
+
+    span {
+      font-size: 20px;
+    }
+
+    .dish-info {
+      display: flex;
+      transform: translateY(30px);
+
+      mat-form-field {
+        margin-top: 50px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        button {
+          height: 50%;
+        }
+
+        .counter {
+          font-weight: bolder;
+          border: 3px solid grey;
+          border-radius: 5px;
+          margin-left: 13px;
+          height: 50%;
+          width: 40px;
+          padding: 6px;
+          margin-right: 10px;
+        }
+
+        .counter:focus {
+          border-color: #3f51b5;
+        }
+      }
+
+      .img-container {
+        display: flex;
+        align-items: center;
+        .dish-img {
+          padding-left: 70px;
+          height: 25vw;
+        }
+      }
+
+      .dish-text-info {
+        padding-left: 70px;
+
+        div {
+          margin-bottom: 30px;
+        }
+      }
+    }
+
+    button {
+      align-self: end;
+    }
+  }
+
+}

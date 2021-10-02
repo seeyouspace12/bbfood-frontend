@@ -1,0 +1,34 @@
+.shopping-card {
+  min-height: 65%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.shopping-card table {
+  width: 100%;
+}
+.shopping-card img {
+  height: 10vw;
+}
+.shopping-card .center-container {
+  display: flex;
+  justify-content: center;
+}
+.shopping-card .pointer:hover {
+  cursor: pointer;
+}
+.shopping-card mat-icon {
+  margin-right: 10px;
+}
+.shopping-card .total {
+  align-self: end;
+  padding: 30px;
+  font-weight: bolder;
+  font-size: 20px;
+}
+.shopping-card .total .order-button {
+  background: palevioletred;
+  border: 2px black solid;
+  margin-left: 10px;
+}
+/*# sourceMappingURL=shopping-card.component.css.map */

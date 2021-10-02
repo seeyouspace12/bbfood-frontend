@@ -1,0 +1,13 @@
+<div class="category">
+  <ul class="dishes">
+    <li *ngFor="let dish of dishes" class="dish">
+      <img
+        src="/assets/images/{{dish.url ? dish.url : 'cheeseburger.png'}}"
+        alt="Картинку не знайдено"
+        class="dishImg"
+        (click)="openDialog(dish)"
+      >
+      <h2>{{dish.title}}</h2>
+    </li>
+  </ul>
+</div>

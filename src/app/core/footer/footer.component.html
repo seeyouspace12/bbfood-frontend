@@ -1,0 +1,15 @@
+<footer>
+  <a routerLink="/" class ="title">
+    <div class="titleContainer">
+      {{title}}
+    </div>
+  </a>
+
+
+  <a class="imgContainer" routerLink="/basket/">
+    <mat-icon class="basketImg">shopping_cart</mat-icon>
+    <span>{{count > 0 ? count : null}}</span>
+  </a>
+
+
+</footer>

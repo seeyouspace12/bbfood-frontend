@@ -1,0 +1,12 @@
+<div class="header">
+  <a routerLink="/" class ="title">
+    <div class="titleContainer">
+        {{title}}
+    </div>
+  </a>
+
+  <a routerLink="/basket/" class="imgContainer">
+      <mat-icon class="basketImg">shopping_cart</mat-icon>
+    <span>{{count > 0 ? count : null}}</span>
+  </a>
+</div>
