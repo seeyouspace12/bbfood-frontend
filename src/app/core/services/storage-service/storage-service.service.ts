@@ -5,6 +5,7 @@ import {OrderItems} from "../../../shared/interfaces/order-item";
 
 const COUNT_STORAGE_KEY = 'count';
 const ORDER_STORAGE_KEY = 'order'
+const USER_STORAGE_KEY = 'user'
 
 
 @Injectable({
@@ -62,6 +63,12 @@ export class LocalStorageService {
     this.storageStatus.next('changed'); // tell subscribers storage status is updated
   }
 
+  public setUser(username : string) {
+    this.storage.set(USER_STORAGE_KEY, username)
+    this.storageStatus.next('changed') // tell subscribers storage status is updated
+  }
+
+
   private getNewCount(count : number) {
     if(this.getCount()) {
       count += Number(this.getCount())
@@ -72,65 +79,93 @@ export class LocalStorageService {
     }
   }
 
-
-  public getAllOrderItems() {
-    let OrderItems : OrderItems[] = []
-    let newOrderItem : OrderItems
-    for(let i = 1; i < this.maxItemKey; i++) {
-      if(this.getItemById(String(i))) {
-        let count = this.getItemById(String(i))
-        newOrderItem = {
-          dishId : i,
-          count : count
-        }
-        OrderItems.push(newOrderItem)
-      }
-    }
-    return OrderItems
-  }
-
-  // public setOrderItem2(itemId : number, count: number) {
-  //   if (this.getItemById(String(itemId)) && String(itemId) !== COUNT_STORAGE_KEY) {
-  //     count += this.getItemById(String(itemId))
-  //   }
-  //
-  //   this.storage.set(String(itemId), count)
-  //   this.maxItemKey = itemId
-  //   this.storageStatus.next('changed'); // tell subscribers storage status is updated
-  // }
-
-  // public removeOrderItem (itemId : number) {
-  //   //let count = this.getItemById(String(itemId))
-  //   this.storage.remove(String(itemId))
-  //   //this.count -= count
-  // }
-  //
-  // public plusOrderItem (itemId : number) {
-  //   let count = this.getItemById(String(itemId)) + 1
-  //   this.removeOrderItem (itemId)
-  //   this.setOrderItem(itemId, count)
-  //   this.setCount(1)
-  // }
-  //
-  // public minusOrderItem (itemId : number) {
-  //   let count = this.getItemById(String(itemId)) - 1
-  //   this.removeOrderItem (itemId)
-  //   if (count) {
-  //     this.setOrderItem(itemId, count)
-  //     this.setCount(-1)
-  //   }
-  // }
-
   // Get Method
   public getCount() {
     return this.storage.get(COUNT_STORAGE_KEY);
+  }
+
+  public getUser() {
+    return this.storage.get(USER_STORAGE_KEY)
   }
 
   private getItemById(id : string) {
     return this.storage.get(id);
   }
 
-  ////////////////
+  public getOrderItems() {
+    return this.storage.get(ORDER_STORAGE_KEY)
+  }
 
+  public plusOrderItem (itemId : number) {
+    if (this.getItemById(ORDER_STORAGE_KEY)) {
+      let prevent = this.getItemById(ORDER_STORAGE_KEY)
+      let foundItem = prevent.find((item: any) => item.itemId === itemId)
+      if (foundItem) {
+        let index = prevent.indexOf(foundItem)
+        let prevCount = prevent[index].count
+        prevent[index] = {
+          itemId,
+          count: prevCount + 1
+        }
+        this.storage.set(ORDER_STORAGE_KEY, prevent)
+      }
+      this.storageStatus.next('changed');
+    }
+  }
 
+  public removeOrderItem (itemId : number) {
+    if (this.getItemById(ORDER_STORAGE_KEY)) {
+      let prevent = this.getItemById(ORDER_STORAGE_KEY)
+      let foundItem = prevent.find((item: any) => item.itemId === itemId)
+      if (foundItem) {
+        let index = prevent.indexOf(foundItem)
+        prevent.splice(index, 1)
+        this.storage.set(ORDER_STORAGE_KEY, prevent)
+      }
+      this.storageStatus.next('changed');
+    }
+  }
+
+  public minusOrderItem (itemId : number) {
+    if (this.getItemById(ORDER_STORAGE_KEY)) {
+      let prevent = this.getItemById(ORDER_STORAGE_KEY)
+      let foundItem = prevent.find((item: any) => item.itemId === itemId)
+      if (foundItem) {
+        let index = prevent.indexOf(foundItem)
+        let prevCount = prevent[index].count
+        prevent[index] = {
+          itemId,
+          count: prevCount - 1
+        }
+        if(prevent[index].count === 0) {
+          this.removeOrderItem(itemId)
+        } else {
+          this.storage.set(ORDER_STORAGE_KEY, prevent)
+        }
+      }
+      this.storageStatus.next('changed');
+    }
+  }
 }
+
+
+
+
+///////////comments
+
+
+
+
+// public setOrderItem2(itemId : number, count: number) {
+//   if (this.getItemById(String(itemId)) && String(itemId) !== COUNT_STORAGE_KEY) {
+//     count += this.getItemById(String(itemId))
+//   }
+//
+//   this.storage.set(String(itemId), count)
+//   this.maxItemKey = itemId
+//   this.storageStatus.next('changed'); // tell subscribers storage status is updated
+// }
+
+
+//
+//

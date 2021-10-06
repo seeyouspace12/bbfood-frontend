@@ -9,7 +9,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {OrderInfoComponent} from "../../shared/order-info/order-info.component";
 import {LocalStorageService} from "../../core/services/storage-service/storage-service.service";
 import {Subject} from "rxjs";
-import {takeUntil} from "rxjs/operators";
+import {map, takeUntil} from "rxjs/operators";
+import {DishInfo} from "../../shared/interfaces/dish-info";
 
 @Component({
   selector: 'app-shopping-card',
@@ -19,11 +20,9 @@ import {takeUntil} from "rxjs/operators";
 export class ShoppingCardComponent implements OnInit, OnChanges, OnDestroy {
 
   orderItems: OrderItems[] = []
-  dishesInOrder: Dish[] = []
-  dataSource: Dish[] = []
-  images: ItemsImage[] = []
+  dishesInOrder: DishInfo[] = []
+  dataSource: DishInfo[] = []
   total: number = 0
-  allDishes: Dish[] = []
 
   constructor(
     private menuService: MenuService,
@@ -39,8 +38,6 @@ export class ShoppingCardComponent implements OnInit, OnChanges, OnDestroy {
       this.resetOrderedDishes()
     })
     this.setOrderedDishes()
-    this.setOrderedDishesImages()
-    this.setDataSource()
     this.setTotalPrice()
   }
 
@@ -50,89 +47,60 @@ export class ShoppingCardComponent implements OnInit, OnChanges, OnDestroy {
 
 
   setItemsFromStorage() {
-    this.orderItems = this.storageService.getAllOrderItems()
+    this.orderItems = this.storageService.getOrderItems()
   }
 
   resetOrderedDishes() {
     this.setItemsFromStorage()
     this.setOrderedDishes()
-    this.setOrderedDishesImages()
-    this.setDataSource()
-    this.setTotalPrice()
   }
 
-  openDialog(orderItems : OrderItems[]) {
+  openDialog() {
+    const dishes = this.dataSource
+    console.log(dishes)
     this.dialogRef.open(OrderInfoComponent, {
-      data: { orderItems }
+      data: {dishes}
     })
-  }
-
-  setDataSource() {
-    this.dataSource = this.dishesInOrder
   }
 
   displayedColumns: string[] = ['img', 'title', 'ingredients', 'price', 'count', 'buttons']
 
   setOrderedDishes() {
-    let dish : any
-    this.orderItems.forEach(item => {
-      dish = this.getDishById(item.dishId)
-      if(dish) {
-        this.dishesInOrder.push(dish)
-      }
+    this.menuService.getDishesInfoById(this.orderItems).subscribe((dishInfo : DishInfo[]) => {
+      this.dataSource = dishInfo
+      this.setTotalPrice()
     })
   }
 
-  setAllDishes(): void {
-    this.menuService.getAllDishes().pipe(takeUntil(this.notifier)).subscribe(dishes => {
-      this.allDishes = dishes
-    })
-  }
-
-  getDishById(id: number) {
-    //return this.allDishes.find(dish => dish.id === id);
-    return DISHES.find(dish => dish.id === id);
-  }
-
-  getDishPrice(id : number) {
-    let dish = this.dishesInOrder.find(dish => dish.id === id)
-    return dish ? dish.price : null
-  }
-
-  setOrderedDishesImages () {
-    this.dishesInOrder.forEach(dish => {
-      this.menuService.getImageById(dish.imageId).pipe(takeUntil(this.notifier)).subscribe(image => {
-        this.images.push(image)
-      })
-    })
-  }
-
-  getDishImg(imageId : number) {
-    let imgUrl
-    this.images.forEach( image => {
-      if(image.id === imageId) {
-        imgUrl = image.url
-      }
-    })
-    return imgUrl
-  }
 
   getCountByDish(dishId : number) {
-    let dish = this.orderItems.find(item => item.dishId === dishId)
+    let dish = this.orderItems.find(item => item.itemId === dishId)
     return dish ? dish.count : ''
   }
 
   ////////////////////////////
 
-  //
+  public plusItem(itemId : number) {
+    this.storageService.plusOrderItem(itemId)
+    this.resetOrderedDishes()
+  }
 
+  public removeItem(itemId : number) {
+    this.storageService.removeOrderItem(itemId)
+    this.resetOrderedDishes()
+  }
+
+  public minusItem(itemId : number) {
+    this.storageService.minusOrderItem(itemId)
+    this.resetOrderedDishes()
+  }
 
   setTotalPrice() {
     let newTotal : number = 0
-    this.orderItems.forEach(dish => {
-      let price = this.getDishPrice(dish.dishId)
+    this.dataSource.forEach(dish => {
+      let price = dish.price
       if (price) {
-        newTotal += price * dish.count
+        newTotal += price * Number(this.getCountByDish(dish.id))
       }
     })
     this.total = newTotal

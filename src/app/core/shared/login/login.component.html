@@ -1,4 +1,4 @@
-<form acton="/login" [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-container">
+<form [formGroup]="loginForm" (ngSubmit)="login()" class="form-container">
   <mat-card>
     <mat-card-header>
       <mat-card-title>Вхід</mat-card-title>
@@ -8,9 +8,8 @@
         <mat-label for="login">Логін </mat-label>
         <input
           matInput
-          name="login"
+          name="username"
           formControlName="username"
-          [(ngModel)]="username"
         >
       </div>
       <div>
@@ -19,43 +18,10 @@
           matInput
           type="password"
           name="password"
-          [(ngModel)]="password"
           formControlName="password"
         >
       </div>
     </mat-card-content>
-    <button mat-raised-button type="submit">Вхід</button>
+    <button mat-button mat-raised-button type="submit">Вхід</button>
   </mat-card>
 </form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--<mat-form-field>-->
-<!--  <div class="login">-->
-<!--    <mat-label for="login">Логін</mat-label>-->
-<!--    <input-->
-<!--      matInput-->
-<!--      name="login"-->
-<!--    >-->
-<!--  </div>-->
-<!--  <div>-->
-<!--    <mat-label for="password">Пароль</mat-label>-->
-<!--    <input-->
-<!--      matInput-->
-<!--      type="password"-->
-<!--      name="password"-->
-<!--    >-->
-<!--  </div>-->
-
-<!--  <button type="submit" mat-button>Увійти</button>-->
-<!--</mat-form-field>-->

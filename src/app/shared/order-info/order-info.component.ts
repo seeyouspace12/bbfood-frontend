@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {LocalStorageService} from "../../core/services/storage-service/storage-service.service";
 import {MenuService} from "../../menu/services/menu.service";
 import {OrderItems} from "../interfaces/order-item";
+import {DishInfo} from "../interfaces/dish-info";
 
 @Component({
   selector: 'app-order-info',
@@ -13,19 +14,19 @@ export class OrderInfoComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<OrderInfoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {orderItems : OrderItems[]},
+    @Inject(MAT_DIALOG_DATA) public data: {dishes : DishInfo[]},
     private storageService: LocalStorageService,
     private menuService: MenuService
   ) {}
 
-  public orderItems : OrderItems[] = []
+  public dishes : DishInfo[] = []
 
   ngOnInit(): void {
-    this.setOrderItems(this.data.orderItems)
+    this.setOrderItems(this.data.dishes)
   }
 
-  private setOrderItems(orderItems : OrderItems[]): void {
-    this.orderItems = orderItems
+  private setOrderItems(dishes : DishInfo[]): void {
+    this.dishes = dishes
   }
 
   onNoClick(): void {

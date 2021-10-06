@@ -10,9 +10,17 @@
       <mat-icon class="basketImg">shopping_cart</mat-icon>
       <span>{{count > 0 ? count : null}}</span>
     </a>
-    <div class="login-buttons">
-      <button mat-button class="login-button" (click)="openDialogLogin()">Вхід</button>
-      <button mat-button class="login-button" (click)="openDialogSignin()">Реєстрація</button>
-    </div>
+    <ng-container *ngIf="user">
+      <div class="user-panel">
+        <mat-icon class="userImg">account_box</mat-icon>
+        <div class="username">{{user}}</div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!user">
+      <div class="login-buttons">
+        <button mat-button class="login-button" (click)="openDialogLogin()">Вхід</button>
+        <button mat-button class="login-button" (click)="openDialogSignin()">Реєстрація</button>
+      </div>
+    </ng-container>
   </div>
 </div>

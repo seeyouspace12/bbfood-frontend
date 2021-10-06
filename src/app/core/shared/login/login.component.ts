@@ -1,9 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef } from "@angular/material/dialog";
-import { FormBuilder } from "@angular/forms";
-//import { AuthService } from "../../services/auth-service/auth.service";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import { Router } from '@angular/router';
-import {User} from "../../../shared/interfaces/user";
+import {AuthService} from "../../services/auth-service/auth.service";
+import {StorageService} from "ngx-webstorage-service";
+import {LocalStorageService} from "../../services/storage-service/storage-service.service";
 
 @Component({
   selector: 'app-login',
@@ -16,28 +17,33 @@ export class LoginComponent implements OnInit {
     public dialogRef: MatDialogRef<LoginComponent>,
     private formBuilder: FormBuilder,
     private router : Router,
+    private authService : AuthService,
+    private storageService : LocalStorageService
   ) {}
 
-  username : string = ''
-  password : string = ''
 
-  loginForm = this.formBuilder.group({
-    username:[''],
-    password:[''],
-  })
-
-  // login() {
-  //   this.authService.login(this.username, this.password)
-  // }
+  loginForm = new FormGroup({
+    username: new FormControl('dwyane'),
+    password: new FormControl('wade'),
+  });
 
   ngOnInit(): void {
   }
 
-  onSubmit() {
-
+  onNoClick(): void {
+    this.dialogRef.close()
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  public login() {
+    const loginInfo = this.loginForm.value
+    this.authService.login(loginInfo).subscribe(
+      (data: any) => {
+        console.log(data)
+        this.storageService.setUser(String(data.username))
+      },
+      error => console.log(error)
+    )
+
+    this.onNoClick()
   }
 }

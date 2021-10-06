@@ -1,4 +1,4 @@
 export interface OrderItems {
-  dishId: number,
+  itemId: number,
   count: number
 }

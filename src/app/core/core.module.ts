@@ -9,7 +9,7 @@ import { LoginComponent } from './shared/login/login.component';
 import { SigninComponent } from './shared/signin/signin.component';
 import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
 
 @NgModule({

@@ -33,25 +33,25 @@ export class DishInfoComponent implements OnInit, OnDestroy {
   }
 
   public setToOrder(dishId: number, count: number) {
-    if(this.findOrderedItem(dishId)) {
-      ORDERITEMS.forEach(item => {
-        if(item.dishId === this.findOrderedItem(dishId)) {
-          item.count += count
-        }
-      })
-    } else {
-      ORDERITEMS.push({dishId, count})
-    }
+    // if(this.findOrderedItem(dishId)) {
+    //   ORDERITEMS.forEach(item => {
+    //     if(item.itemId === this.findOrderedItem(dishId)) {
+    //       item.count += count
+    //     }
+    //   })
+    // } else {
+    //   ORDERITEMS.push({dishId, count})
+    // }
     this.storageService.setCount(count)
     this.storageService.setOrderItem(dishId, count)
     this.onNoClick()
   }
 
-  public findOrderedItem(dishId: number) {
-    let dish = ORDERITEMS.find(item => item.dishId === dishId)
-
-    return dish ? dish.dishId : undefined
-  }
+  // public findOrderedItem(dishId: number) {
+  //   let dish = ORDERITEMS.find(item => item.dishId === dishId)
+  //
+  //   return dish ? dish.dishId : undefined
+  // }
 
   onNoClick(): void {
     this.dialogRef.close();
