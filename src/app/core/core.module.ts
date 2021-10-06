@@ -4,17 +4,31 @@ import {FooterComponent} from "./footer/footer.component";
 import {HeaderComponent} from "./header/header.component";
 import {RouterModule} from '@angular/router';
 import {MatIconModule} from "@angular/material/icon";
-
+import {MatButtonModule} from "@angular/material/button";
+import { LoginComponent } from './shared/login/login.component';
+import { SigninComponent } from './shared/signin/signin.component';
+import {MatInputModule} from "@angular/material/input";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoginComponent,
+    SigninComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatCardModule
   ],
   exports: [
     FooterComponent,

@@ -1,0 +1,12 @@
+<div [ngClass]="sidebarClass">
+  <ul>
+    <li *ngFor="let category of categoriesInfo" class="category-image">
+      <div class="imgContainer">
+        <a routerLink="/menu/{{category.id}}">
+          <img [src]=category.url class="img">
+        </a>
+      </div>
+    </li>
+  </ul>
+</div>
+

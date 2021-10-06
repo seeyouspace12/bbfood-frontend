@@ -4,7 +4,7 @@ import { HttpClientModule }   from '@angular/common/http';
 
 import {CategoryCatalogComponent} from "./category-catalog/category-catalog.component";
 import {NavCategoriesComponent} from "./NO-used-nav/nav-categories.component";
-import {StartCategoriesComponent} from "./nav/start-categories.component";
+import {CategoriesComponent} from "./categories/categories.component";
 import {RouterModule} from '@angular/router';
 import {FormsModule} from "@angular/forms";
 import { ShoppingCardComponent } from './shopping-card/shopping-card.component';
@@ -19,7 +19,7 @@ import {MatButtonModule} from "@angular/material/button";
   declarations: [
     CategoryCatalogComponent,
     NavCategoriesComponent,
-    StartCategoriesComponent,
+    CategoriesComponent,
     ShoppingCardComponent,
     CategoriesMenuComponent
   ],
@@ -36,8 +36,8 @@ import {MatButtonModule} from "@angular/material/button";
   exports: [
     CategoryCatalogComponent,
     NavCategoriesComponent,
-    StartCategoriesComponent
+    CategoriesComponent
   ],
-  bootstrap:[StartCategoriesComponent]
+  bootstrap:[CategoriesComponent]
 })
 export class MenuModule { }

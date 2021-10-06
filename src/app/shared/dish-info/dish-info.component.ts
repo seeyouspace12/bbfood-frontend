@@ -20,9 +20,9 @@ export class DishInfoComponent implements OnInit, OnDestroy {
 
   private notifier = new Subject()
 
-  image: any
+  public image: any
 
-  count: number = 1
+  public count: number = 1
 
   ngOnInit(): void {
   }
@@ -32,7 +32,7 @@ export class DishInfoComponent implements OnInit, OnDestroy {
     this.notifier.complete()
   }
 
-  setToOrder(dishId: number, count: number) {
+  public setToOrder(dishId: number, count: number) {
     if(this.findOrderedItem(dishId)) {
       ORDERITEMS.forEach(item => {
         if(item.dishId === this.findOrderedItem(dishId)) {
@@ -47,7 +47,7 @@ export class DishInfoComponent implements OnInit, OnDestroy {
     this.onNoClick()
   }
 
-  findOrderedItem(dishId: number) {
+  public findOrderedItem(dishId: number) {
     let dish = ORDERITEMS.find(item => item.dishId === dishId)
 
     return dish ? dish.dishId : undefined

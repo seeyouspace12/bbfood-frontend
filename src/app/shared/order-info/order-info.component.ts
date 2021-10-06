@@ -18,16 +18,15 @@ export class OrderInfoComponent implements OnInit {
     private menuService: MenuService
   ) {}
 
-  orderItems : OrderItems[] = []
+  public orderItems : OrderItems[] = []
 
   ngOnInit(): void {
     this.setOrderItems(this.data.orderItems)
   }
 
-  setOrderItems(orderItems : OrderItems[]): void {
+  private setOrderItems(orderItems : OrderItems[]): void {
     this.orderItems = orderItems
   }
-
 
   onNoClick(): void {
     this.dialogRef.close();

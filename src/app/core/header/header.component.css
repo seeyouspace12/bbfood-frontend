@@ -29,7 +29,7 @@
   background: palevioletred;
   border-radius: 8px;
   padding: 10px;
-  align-self: center;
+  align-self: end;
 }
 .header .imgContainer a {
   height: 50%;
@@ -40,5 +40,20 @@
 a {
   text-decoration: none;
   color: black;
+}
+.mat-button {
+  background: palevioletred;
+}
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: end;
+}
+.buttons .login-button {
+  margin: 5px;
+}
+.buttons .login-button:nth-child(2) {
+  margin-right: 30px;
 }
 /*# sourceMappingURL=header.component.css.map */

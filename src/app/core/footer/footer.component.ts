@@ -8,6 +8,7 @@ import {Subject} from "rxjs";
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.less']
 })
+
 export class FooterComponent implements OnInit, OnDestroy {
 
   constructor(
@@ -24,13 +25,13 @@ export class FooterComponent implements OnInit, OnDestroy {
     })
   }
 
-  count : number = 0
+  public count : number = 0
 
   setCountFromStorage() {
     this.count = Number(localStorage.getItem('count'))
   }
 
-  title = 'BIG BABY FOOD'
+  public title = 'BIG BABY FOOD'
 
   ngOnDestroy(): void {
     this.notifier.next()

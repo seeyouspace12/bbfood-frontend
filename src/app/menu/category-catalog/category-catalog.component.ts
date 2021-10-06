@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { MatDialog} from "@angular/material/dialog";
 
 import { MenuService } from "../services/menu.service";
-import { ItemsImage } from "../../shared/interfaces/items-image";
 import { DishInfoComponent } from "../../shared/dish-info/dish-info.component";
 import { Category } from "../../shared/interfaces/category";
 import {takeUntil} from "rxjs/operators";
@@ -17,9 +16,8 @@ import {DishInfo} from "../../shared/interfaces/dish-info";
 })
 export class CategoryCatalogComponent implements OnInit, OnDestroy {
 
-  images: ItemsImage[] = []
-  dishes: DishInfo[] = []
-  category: Category[] = []
+  public dishes: DishInfo[] = []
+  public category: Category[] = []
 
   constructor(
     private route: ActivatedRoute,
@@ -33,20 +31,13 @@ export class CategoryCatalogComponent implements OnInit, OnDestroy {
   private notifier = new Subject()
 
 
-  openDialog(dish : DishInfo) {
+  public openDialog(dish : DishInfo) {
     this.dialogRef.open(DishInfoComponent, {
       data: { dish }
     })
   }
 
-  setImages(): void {
-    this.menuService.getImages().pipe(takeUntil(this.notifier))
-      .subscribe(images => {
-        this.images = images
-      })
-  }
-
-  getFilteredDishes() : void {
+  private setFilteredDishes() : void {
     const id = Number(this.route.snapshot.paramMap.get('id'))
     this.menuService.getDishesInfoByType(id).pipe(takeUntil(this.notifier))
       .subscribe(dishes => {
@@ -55,8 +46,7 @@ export class CategoryCatalogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.setImages()
-    this.getFilteredDishes()
+    this.setFilteredDishes()
   }
 
   ngOnDestroy(): void {

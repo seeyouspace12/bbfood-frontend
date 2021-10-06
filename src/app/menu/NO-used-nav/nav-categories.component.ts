@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {MenuService} from "../services/menu.service";
-import {NavImage} from "../../shared/interfaces/nav-image";
 import {Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
+import {Category} from "../../shared/interfaces/category";
 
 @Component({
   selector: 'app-nav-categories',
@@ -12,7 +12,7 @@ import {takeUntil} from "rxjs/operators";
 })
 export class NavCategoriesComponent implements OnInit, OnDestroy {
 
-  images : NavImage[] = []
+  public images : Category[] = []
 
   private notifier = new Subject()
 
@@ -24,7 +24,7 @@ export class NavCategoriesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.menuService.getNavImages().pipe(takeUntil(this.notifier))
+    this.menuService.getCategories().pipe(takeUntil(this.notifier))
       .subscribe(images => this.images = images)
   }
 
