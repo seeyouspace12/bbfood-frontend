@@ -1,4 +1,12 @@
 mat-dialog-content {
-  min-width: 50vw;
+  min-width: 30vw;
+}
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+.input-container input {
+  padding: 5px;
 }
 /*# sourceMappingURL=order-info.component.css.map */

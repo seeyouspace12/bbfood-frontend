@@ -96,6 +96,16 @@ export class LocalStorageService {
     return this.storage.get(ORDER_STORAGE_KEY)
   }
 
+  public removeUser() {
+    this.storage.remove(USER_STORAGE_KEY)
+    this.storageStatus.next('changed');
+  }
+
+  public removeOrder() {
+    this.storage.set(ORDER_STORAGE_KEY, [])
+    this.storageStatus.next('changed');
+  }
+
   public plusOrderItem (itemId : number) {
     if (this.getItemById(ORDER_STORAGE_KEY)) {
       let prevent = this.getItemById(ORDER_STORAGE_KEY)

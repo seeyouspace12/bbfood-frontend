@@ -8,6 +8,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CoreModule} from "../core/core.module";
 import {OrderInfoComponent} from "./order-info/order-info.component";
+import {MatCardModule} from "@angular/material/card";
 
 
 
@@ -25,7 +26,8 @@ import {OrderInfoComponent} from "./order-info/order-info.component";
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatCardModule
   ],
   exports: [
     DishInfoComponent,

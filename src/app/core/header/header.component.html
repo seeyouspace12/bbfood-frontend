@@ -11,9 +11,14 @@
       <span>{{count > 0 ? count : null}}</span>
     </a>
     <ng-container *ngIf="user">
-      <div class="user-panel">
-        <mat-icon class="userImg">account_box</mat-icon>
-        <div class="username">{{user}}</div>
+      <div class="auth-panel-container">
+        <div class="user-panel">
+          <mat-icon class="userImg">account_box</mat-icon>
+          <div class="username">{{user}}</div>
+        </div>
+        <div class="exit-button">
+          <mat-icon (click)="removeUser()">exit_to_app</mat-icon>
+        </div>
       </div>
     </ng-container>
     <ng-container *ngIf="!user">

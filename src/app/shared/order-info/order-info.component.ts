@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {LocalStorageService} from "../../core/services/storage-service/storage-service.service";
 import {MenuService} from "../../menu/services/menu.service";
 import {OrderItems} from "../interfaces/order-item";
-import {DishInfo} from "../interfaces/dish-info";
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-order-info',
@@ -14,19 +14,26 @@ export class OrderInfoComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<OrderInfoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {dishes : DishInfo[]},
-    private storageService: LocalStorageService,
-    private menuService: MenuService
+    @Inject(MAT_DIALOG_DATA) public data: {orderItems : OrderItems[]},
+    private menuService: MenuService,
+    private storageService : LocalStorageService
   ) {}
 
-  public dishes : DishInfo[] = []
-
   ngOnInit(): void {
-    this.setOrderItems(this.data.dishes)
   }
 
-  private setOrderItems(dishes : DishInfo[]): void {
-    this.dishes = dishes
+  orderInfoForm = new FormGroup({
+    address: new FormControl(''),
+    date: new FormControl(''),
+  });
+
+  public createOrder() {
+    const address = this.orderInfoForm.value.address
+    const date = this.orderInfoForm.value.date
+    const orderItems = this.data.orderItems
+    this.menuService.createOrder(date, address, orderItems).subscribe()
+    this.storageService.removeOrder()
+    this.onNoClick()
   }
 
   onNoClick(): void {

@@ -1,15 +1,11 @@
 import {Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {OrderItems} from "../../shared/interfaces/order-item";
-import {DISHES} from "../../mock/dishes";
-import {Dish} from "../../shared/interfaces/dish";
-import {ORDERS} from "../../mock/orders";
 import {MenuService} from "../services/menu.service";
-import {ItemsImage} from "../../shared/interfaces/items-image";
 import {MatDialog} from "@angular/material/dialog";
 import {OrderInfoComponent} from "../../shared/order-info/order-info.component";
 import {LocalStorageService} from "../../core/services/storage-service/storage-service.service";
 import {Subject} from "rxjs";
-import {map, takeUntil} from "rxjs/operators";
+import {takeUntil} from "rxjs/operators";
 import {DishInfo} from "../../shared/interfaces/dish-info";
 
 @Component({
@@ -20,7 +16,6 @@ import {DishInfo} from "../../shared/interfaces/dish-info";
 export class ShoppingCardComponent implements OnInit, OnChanges, OnDestroy {
 
   orderItems: OrderItems[] = []
-  dishesInOrder: DishInfo[] = []
   dataSource: DishInfo[] = []
   total: number = 0
 
@@ -47,7 +42,10 @@ export class ShoppingCardComponent implements OnInit, OnChanges, OnDestroy {
 
 
   setItemsFromStorage() {
-    this.orderItems = this.storageService.getOrderItems()
+    const storageData = this.storageService.getOrderItems()
+    if (storageData) {
+      this.orderItems = this.storageService.getOrderItems()
+    }
   }
 
   resetOrderedDishes() {
@@ -56,17 +54,17 @@ export class ShoppingCardComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   openDialog() {
-    const dishes = this.dataSource
-    console.log(dishes)
+    const orderItems = this.orderItems
+    console.log(orderItems)
     this.dialogRef.open(OrderInfoComponent, {
-      data: {dishes}
+      data: {orderItems}
     })
   }
 
   displayedColumns: string[] = ['img', 'title', 'ingredients', 'price', 'count', 'buttons']
 
   setOrderedDishes() {
-    this.menuService.getDishesInfoById(this.orderItems).subscribe((dishInfo : DishInfo[]) => {
+    this.menuService.getDishesInfoById(this.orderItems).pipe(takeUntil(this.notifier)).subscribe((dishInfo : DishInfo[]) => {
       this.dataSource = dishInfo
       this.setTotalPrice()
     })
@@ -110,30 +108,4 @@ export class ShoppingCardComponent implements OnInit, OnChanges, OnDestroy {
     this.notifier.next()
     this.notifier.complete()
   }
-
-  // addOrder() {
-  //   let id : number = this.getIndex()
-  //   ORDERITEMS.forEach(item => {
-  //     ORDERS.push({
-  //       orderId : id,
-  //       orderItem: item
-  //     })
-  //   })
-  //   console.log(ORDERS)
-  // }
-  //
-  // setOrderedDishes2(): void {
-  //   this.orderItems.forEach(dish => {
-  //     this.menuService.getDishById(dish.dishId).subscribe(dish => {
-  //       this.dishesInOrder.push(dish)
-  //       //console.log(this.dishesInOrder)
-  //     })
-  //   })
-  // }
-  //
-  // setOrderItems() {
-  //   this.menuService.getOrderItems().subscribe(items => {
-  //     this.orderItems = items
-  //   })
-  // }
 }

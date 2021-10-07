@@ -1,9 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from "@angular/material/dialog";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup} from "@angular/forms";
 import { Router } from '@angular/router';
 import {AuthService} from "../../services/auth-service/auth.service";
-import {StorageService} from "ngx-webstorage-service";
 import {LocalStorageService} from "../../services/storage-service/storage-service.service";
 
 @Component({
@@ -15,7 +14,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<LoginComponent>,
-    private formBuilder: FormBuilder,
     private router : Router,
     private authService : AuthService,
     private storageService : LocalStorageService

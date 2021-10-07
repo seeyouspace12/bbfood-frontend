@@ -60,4 +60,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.user = user.replace(/"/gi, '')
     }
   }
+
+  public removeUser() {
+    this.storageService.removeUser()
+  }
 }

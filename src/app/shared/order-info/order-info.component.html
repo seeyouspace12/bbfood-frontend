@@ -1,7 +1,29 @@
 <mat-dialog-content class="mat-typography">
-  <ul>
-    <li *ngFor="let item of dishes">{{item.id}}</li>
-  </ul>
-  <button mat-button>Замовити</button>
+  <form [formGroup]="orderInfoForm" (ngSubmit)="createOrder()" class="form-container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Оформлення замовлення</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="input-container">
+          <mat-label for="address">Адреса</mat-label>
+          <input
+            matInput
+            name="address"
+            formControlName="address"
+          >
+        </div>
+        <div class="input-container">
+          <mat-label for="date">Дата </mat-label>
+          <input
+            matInput
+            name="date"
+            formControlName="date"
+          >
+        </div>
+      </mat-card-content>
+      <button mat-button mat-raised-button type="submit">Оформити замовлення</button>
+    </mat-card>
+  </form>
 </mat-dialog-content>
 
